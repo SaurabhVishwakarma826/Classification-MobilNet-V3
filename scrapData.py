@@ -74,3 +74,6 @@ if __name__ == "__main__":
     pool.starmap(download_images, [(search, num_images) for search in search_terms])
     pool.close()
     pool.join()
+
+
+# if you are unable to scrap data then directly downlaod from this link - https://drive.google.com/file/d/1_U6wxKoALszTnXclzL8Fa3Ij8cYL_bVi/view?usp=sharing
