@@ -1,1 +1,155 @@
-this is index page
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sweet App</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body,
+      html {
+        height: 100%;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        padding-top: 120px;
+      }
+
+      img {
+        width: auto;
+        height: 200px;
+        border: 1px solid black;
+      }
+
+      .sweets {
+        display: flex;
+        justify-content: center;
+        width: 500px;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .sweets li {
+        list-style: none;
+        transition: transform 0.3s ease-in-out, font-weight 0.3s ease-in-out;
+      }
+
+      .sweets li:hover {
+        transform: scale(1.1);
+        font-weight: bold;
+        animation: hoverAnimation 0.3s ease-in-out;
+      }
+
+      @keyframes hoverAnimation {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1.1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col text-center">
+          <h2>Predict your sweet</h2>
+          <div class="form-group">
+            <label for="sweetImage">Upload your sweet image:</label>
+            <input type="file" class="form-control-file" id="sweetImage" />
+          </div>
+          <div class="mt-3">
+            <img
+              id="preview"
+              class="preview-image"
+              src="https://tool.jobassam.in/img/preview.png"
+              alt="Preview Image"
+              style="display: none"
+            />
+          </div>
+          <button class="btn btn-primary mt-3" id="predictButton">
+            Predict
+          </button>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col text-center">
+          <h3>
+            <p id="predictedSweet"></p>
+          </h3>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col text-center">
+          <h3>Predict the sweet likes</h3>
+          <ul class="sweets">
+            <li>Balushahi</li>
+            <li>Besan ke Laddu</li>
+            <li>Jalebi</li>
+            <li>Kaju Katli</li>
+            <li>Modak</li>
+            <li>Peda</li>
+            <li>Rasgulla</li>
+            <li>Rasmalai</li>
+            <li>Soan Papdi</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for Previewing Image -->
+    <script>
+      document
+        .getElementById("sweetImage")
+        .addEventListener("change", function (event) {
+          var reader = new FileReader();
+          reader.onload = function () {
+            var preview = document.getElementById("preview");
+            preview.src = reader.result;
+            preview.style.display = "block";
+          };
+          reader.readAsDataURL(event.target.files[0]);
+        });
+
+      document
+        .getElementById("predictButton")
+        .addEventListener("click", function () {
+          var fileInput = document.getElementById("sweetImage");
+          var file = fileInput.files[0];
+          var formData = new FormData();
+          formData.append("file", file);
+
+          fetch("/predict", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              document.getElementById("predictedSweet").innerText =
+                "Predicted Sweet: " + data.result;
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>

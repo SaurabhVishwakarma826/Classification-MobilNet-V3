@@ -23,9 +23,7 @@ def classify_image(imageFile):
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
 
-    print(x.shape)
     pred = model.predict(x)
-    print(pred)
 
     # get the highest prediction value 
     categoryValue = np.argmax(pred, axis=1)
@@ -38,10 +36,10 @@ def classify_image(imageFile):
     return result
 
 
-# img_path = "G:/desktop/project/sweetClassification/kaju.webp"
+# img_path = "G:/desktop/project/sweetClassification/besan ke laddu_96.jpg"
 # resultText = classify_image(img_path)
 # print(resultText)
-
+#
 # img = cv2.imread(img_path)
 # img = cv2.putText(img , resultText, (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,0), 2)
 # cv2.imshow('img', img)
