@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify, render_template
-import os 
 from predict import classify_image
 from PIL import Image
 import tempfile

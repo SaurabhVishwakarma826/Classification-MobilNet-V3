@@ -9,7 +9,7 @@ categories = ['Balushahi', 'Besan ke Laddu', 'Jalebi', 'Kaju Katli', 'Modak', 'P
 categories.sort()
 
 # load the saved model :
-modelSavedPath = "G:/desktop/project/sweetClassification/sweet_model.keras"
+modelSavedPath = "./sweet_model.keras"
 model = tf.keras.models.load_model(modelSavedPath)
 
 # predict the image 
